@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/students")
 @RequiredArgsConstructor
@@ -24,28 +26,28 @@ public class StudentController {
     private final StudentService studentService;
 
     @GetMapping
-    public StudentListResponse getAllStudents() {
+    public StudentListResponse getAll() {
         return studentService.getAllStudents();
     }
 
     @GetMapping("/{studentId}")
-    public StudentResponse getOneStudent(@PathVariable Long studentId) {
+    public StudentResponse getStudent(@PathVariable Long studentId) {
         return studentService.getStudentById(studentId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void createOneStudent(@RequestBody StudentRequest studentRequest) {
+    public void createStudent(@Valid @RequestBody StudentRequest studentRequest) {
         studentService.createStudent(studentRequest);
     }
 
     @PutMapping("/{studentId}")
-    public void updateOneStudent(@PathVariable Long studentId, @RequestBody StudentRequest studentRequest) {
+    public void updateStudent(@PathVariable Long studentId, @Valid @RequestBody StudentRequest studentRequest) {
         studentService.updateStudent(studentId, studentRequest);
     }
 
     @DeleteMapping("/{studentId}")
-    public void deleteOneStudent(@PathVariable Long studentId) {
+    public void deleteStudent(@PathVariable Long studentId) {
         studentService.deleteStudent(studentId);
     }
 

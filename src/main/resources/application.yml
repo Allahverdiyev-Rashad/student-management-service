@@ -9,3 +9,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 server:
   port: 8090
+logging:
+  file:
+    name: logs/student_management_service.log
+  level:
+    az.spring.studentmanagementservice: DEBUG
+    org.springframework.web: ERROR
+    org.hibernate: ERROR
