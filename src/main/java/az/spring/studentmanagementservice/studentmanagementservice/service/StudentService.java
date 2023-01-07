@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,22 +40,30 @@ public class StudentService {
         return studentResponse;
     }
 
-    public void createStudent(StudentRequest studentRequest) {
+    public StudentResponse createStudent(StudentRequest studentRequest) {
         log.info("studentRequest : {}", studentRequest);
         Student student = new Student();
         BeanUtils.copyProperties(studentRequest, student);
         studentRepository.save(student);
-        log.info("student : {}", student);
+
+        StudentResponse studentResponse = new StudentResponse();
+        BeanUtils.copyProperties(studentRequest, studentResponse);
+        log.info("studentResponse : {}", studentResponse);
+        return studentResponse;
     }
 
-    public void updateStudent(Long studentId, StudentRequest studentRequest) {
+    public StudentResponse updateStudent(Long studentId, StudentRequest studentRequest) {
         log.info("studentRequest : {}", studentRequest);
         Student foundStudent = studentRepository.findById(studentId)
                 .orElseThrow(() -> ServiceException.of(ErrorCode.STUDENT_NOT_FOUND.name(), ErrorMessage.STUDENT_NOT_FOUND));
         Student student = new Student();
         BeanUtils.copyProperties(studentRequest, student);
-        log.info("student : {}", student);
         studentRepository.save(student);
+
+        StudentResponse studentResponse = new StudentResponse();
+        BeanUtils.copyProperties(studentRequest, studentResponse);
+        log.info("studentResponse : {}", studentResponse);
+        return studentResponse;
     }
 
     public void deleteStudent(Long studentId) {
@@ -74,6 +83,14 @@ public class StudentService {
         log.info("student : {}", student);
         StudentResponse studentResponse = new StudentResponse();
         BeanUtils.copyProperties(student, studentResponse);
+        log.info("studentResponse : {}", studentResponse);
+        return studentResponse;
+    }
+
+    private StudentResponse requestToResponse(StudentRequest studentRequest) {
+        log.info("studentRequest : {}", studentRequest);
+        StudentResponse studentResponse = new StudentResponse();
+        BeanUtils.copyProperties(studentRequest, studentResponse);
         log.info("studentResponse : {}", studentResponse);
         return studentResponse;
     }

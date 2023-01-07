@@ -26,27 +26,31 @@ public class StudentController {
     private final StudentService studentService;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public StudentListResponse getAll() {
         return studentService.getAllStudents();
     }
 
     @GetMapping("/{studentId}")
+    @ResponseStatus(HttpStatus.OK)
     public StudentResponse getStudent(@PathVariable Long studentId) {
         return studentService.getStudentById(studentId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void createStudent(@Valid @RequestBody StudentRequest studentRequest) {
-        studentService.createStudent(studentRequest);
+    public StudentResponse createStudent(@Valid @RequestBody StudentRequest studentRequest) {
+       return studentService.createStudent(studentRequest);
     }
 
     @PutMapping("/{studentId}")
-    public void updateStudent(@PathVariable Long studentId, @Valid @RequestBody StudentRequest studentRequest) {
-        studentService.updateStudent(studentId, studentRequest);
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public StudentResponse updateStudent(@PathVariable Long studentId, @Valid @RequestBody StudentRequest studentRequest) {
+        return studentService.updateStudent(studentId, studentRequest);
     }
 
     @DeleteMapping("/{studentId}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteStudent(@PathVariable Long studentId) {
         studentService.deleteStudent(studentId);
     }

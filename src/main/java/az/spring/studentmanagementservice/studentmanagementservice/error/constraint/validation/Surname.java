@@ -18,6 +18,8 @@ import java.lang.annotation.Target;
 @NotBlank(message = "Must not be blank")
 public @interface Surname {
 
+    String message() default "";
+
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
