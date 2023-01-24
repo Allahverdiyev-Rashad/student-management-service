@@ -1,8 +1,11 @@
 package az.spring.studentmanagementservice.studentmanagementservice.service;
 
 import az.spring.studentmanagementservice.studentmanagementservice.domain.Student;
+import az.spring.studentmanagementservice.studentmanagementservice.domain.Teacher;
 import az.spring.studentmanagementservice.studentmanagementservice.request.StudentRequest;
+import az.spring.studentmanagementservice.studentmanagementservice.request.TeacherRequest;
 import az.spring.studentmanagementservice.studentmanagementservice.response.StudentResponse;
+import az.spring.studentmanagementservice.studentmanagementservice.response.TeacherResponse;
 import lombok.Data;
 
 @Data
@@ -51,6 +54,46 @@ public class Util {
         studentResponse.setSurname("TestSurname");
         studentResponse.setEmail("test@mail.ru");
         return studentResponse;
+    }
+
+    public static Teacher teacher() {
+        Teacher teacher = new Teacher();
+        teacher.setId(1L);
+        teacher.setUsername("TestUsurname");
+        teacher.setPassword("testPassword");
+        return teacher;
+    }
+
+    public static Teacher teacher2() {
+        Teacher teacher2 = new Teacher();
+        teacher2.setId(2L);
+        teacher2.setUsername("TestUsurname2");
+        teacher2.setPassword("testPassword2");
+        return teacher2;
+    }
+
+    public static TeacherRequest teacherRequest() {
+        TeacherRequest teacherRequest = new TeacherRequest();
+        teacherRequest.setId(1L);
+        teacherRequest.setUsername("testUsername");
+        teacherRequest.setPassword("testPassword");
+        return teacherRequest;
+    }
+
+    public static TeacherResponse teacherResponse() {
+        TeacherResponse teacherResponse = new TeacherResponse();
+        teacherResponse.setId(teacher().getId());
+        teacherResponse.setUsername(teacher().getUsername());
+        teacherResponse.setPassword(teacher().getPassword());
+        return teacherResponse;
+    }
+
+    public static TeacherResponse updateTeacherResponce() {
+        TeacherResponse teacherResponse = new TeacherResponse();
+        teacherResponse.setId(1L);
+        teacherResponse.setUsername("testUsurname");
+        teacherResponse.setPassword("testPassword");
+        return teacherResponse;
     }
 
 }

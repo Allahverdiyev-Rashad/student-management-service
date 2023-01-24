@@ -15,24 +15,21 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "student")
-public class Student {
+@Table(name = "teacher")
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 30)
-    private String name;
-
     @Column(length = 40)
-    private String surname;
+    private String username;
 
-    @Column(length = 100)
-    private String email;
+    @Column(length = 25)
+    private String password;
 
-    @OneToMany(targetEntity = Teacher.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id", nullable = false)
-    private List<Teacher> teachers;
+    @OneToMany(targetEntity = Student.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id", referencedColumnName = "id", nullable = false)
+    private List<Student> students;
 
 }
