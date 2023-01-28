@@ -56,6 +56,7 @@ public class ErrorHandler {
     public ErrorResponse handleArgumentNotValidException(MethodArgumentNotValidException ex) {
 
         String fieldName = ex.getBindingResult().getFieldError().getField();
+
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setCode(ErrorCode.VALIDATION_ERROR.name());
         errorResponse.setMessage(fieldName + ErrorMessage.VALIDATION_ERROR);
