@@ -8,6 +8,9 @@ spring:
     username: root
     password: 8188121
     driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 server:
   port: 8090
 logging:

@@ -26,4 +26,6 @@ public class StudentRequest {
     @Email(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?``{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
 
+    private Long teacherId;
+
 }
