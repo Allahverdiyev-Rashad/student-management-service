@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/teachers")
+@RequestMapping("api/v1/teachers")
 @RequiredArgsConstructor
 public class TeacherController {
 
@@ -31,8 +31,8 @@ public class TeacherController {
 
     @GetMapping("/v2/pages")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Page<Teacher>> getAll(TeacherPage teacherPage, TeacherSearchCriteria searchCriteria) {
-        return new ResponseEntity<>(teacherService.getTeachersWithFilter(teacherPage, searchCriteria), HttpStatus.OK);
+    public ResponseEntity<Page<Teacher>> getAllWithPagination(TeacherPage teacherPage, TeacherSearchCriteria searchCriteria) {
+        return new ResponseEntity<>(teacherService.getTeachersWithPagination(teacherPage, searchCriteria), HttpStatus.OK);
     }
 
     @GetMapping

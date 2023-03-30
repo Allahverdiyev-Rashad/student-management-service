@@ -56,7 +56,7 @@ public class TeacherControllerTest {
         verify(teacherService).getAllTeachers();
         verifyNoMoreInteractions(teacherService);
 
-        String URI = "/teachers";
+        String URI = "/api/v1/teachers";
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post(URI)
@@ -84,7 +84,7 @@ public class TeacherControllerTest {
         verify(teacherService).createTeacher(teacherRequest());
         verifyNoMoreInteractions(teacherService);
 
-        String URI = "/teachers";
+        String URI = "/api/v1/teachers";
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post(URI)
@@ -107,7 +107,7 @@ public class TeacherControllerTest {
         verify(teacherService).getTeacherById(teacherResponse().getId());
         verifyNoMoreInteractions(teacherService);
 
-        String URI = "/teachers/1";
+        String URI = "/api/v1/teachers/1";
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post(URI)
@@ -126,7 +126,7 @@ public class TeacherControllerTest {
         assertThat(response).isNotNull();
         assertEquals(teacher().getId(), teacherRequest().getId());
 
-        String URI = "/teachers/1";
+        String URI = "/api/v1/teachers/1";
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post(URI)
@@ -142,7 +142,7 @@ public class TeacherControllerTest {
         verify(teacherService, times(1)).deleteTeacher(1L);
         verifyNoMoreInteractions(teacherService);
 
-        String URI = "/teachers/1";
+        String URI = "/api/v1/teachers/1";
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post(URI)

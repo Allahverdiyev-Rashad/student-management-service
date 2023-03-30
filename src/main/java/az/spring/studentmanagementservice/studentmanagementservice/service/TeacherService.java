@@ -27,7 +27,7 @@ public class TeacherService {
     private final TeacherMapper teacherMapper;
     private final TeacherCriteriaRepository teacherCriteriaRepository;
 
-    public Page<Teacher> getTeachersWithFilter(TeacherPage teacherPage, TeacherSearchCriteria searchCriteria) {
+    public Page<Teacher> getTeachersWithPagination(TeacherPage teacherPage, TeacherSearchCriteria searchCriteria) {
         log.info("Pages : {}", teacherPage);
         return teacherCriteriaRepository.findAllWithFilter(teacherPage, searchCriteria);
     }
