@@ -26,7 +26,6 @@ public class TeacherRepositoryTest {
 
     @Test
     public void testTeacherSave_whenSaveTeacher_shouldReturnSavedTeacher() {
-
         teacherRepository.save(Util.teacher());
         Optional<Teacher> foundTeacher = teacherRepository.findById(Util.teacher().getId());
 
@@ -34,12 +33,10 @@ public class TeacherRepositoryTest {
         assertThat(foundTeacher.get().getId()).isGreaterThan(0);
         assertEquals(foundTeacher.get().getId(), Util.teacher().getId());
         assertEquals(foundTeacher.get().getUsername(), Util.teacher().getUsername());
-
     }
 
     @Test
     public void testGetAllTeacherList_whenFindAll_shouldReturnTeachersList() {
-
         teacherRepository.save(Util.teacher());
         teacherRepository.save(Util.teacher2());
 
@@ -50,12 +47,10 @@ public class TeacherRepositoryTest {
         assertEquals(requestList.get(1).getUsername(), Util.teacher2().getUsername());
         assertEquals(requestList.get(0).getUsername(), Util.teacher().getUsername());
         assertEquals(requestList.get(0).getId(), Util.teacher().getId());
-
     }
 
     @Test
     public void testGetTeacherById_whenFindById_shouldReturnTeacher() {
-
         teacherRepository.save(Util.teacher());
 
         Optional<Teacher> foundTeacher = teacherRepository.findById(Util.teacher().getId());
@@ -63,34 +58,29 @@ public class TeacherRepositoryTest {
         assertThat(foundTeacher).isNotNull();
         assertEquals(foundTeacher.get().getId(), Util.teacher().getId());
         assertEquals(foundTeacher.get().getPassword(), Util.teacher().getPassword());
-
     }
 
     @Test
     public void testUpdateTeacherById_whenUpdateTeacher_shouldReturnUpdatedTeacher() {
-
         Teacher foundTeacher = teacherRepository.findById(Util.teacher().getId()).get();
         foundTeacher.setUsername("UpdatedUsername");
         foundTeacher.setPassword("UpdatedPassword");
-        Teacher updateTeacher = teacherRepository.save(foundTeacher);
+        Teacher updatedTeacher = teacherRepository.save(foundTeacher);
 
-        assertThat(updateTeacher).isNotNull();
-        assertThat(updateTeacher.getId()).isEqualTo(foundTeacher.getId());
-        assertEquals(foundTeacher.getUsername(), updateTeacher.getUsername());
-        assertEquals(foundTeacher.getPassword(), updateTeacher.getPassword());
-
+        assertThat(updatedTeacher).isNotNull();
+        assertThat(updatedTeacher.getId()).isEqualTo(foundTeacher.getId());
+        assertEquals(foundTeacher.getUsername(), updatedTeacher.getUsername());
+        assertEquals(foundTeacher.getPassword(), updatedTeacher.getPassword());
     }
 
     @Test
     public void testDeleteTeacher_whenDeleteTeacher_thenRemoveTeacher() {
-
         teacherRepository.save(Util.teacher());
         teacherRepository.deleteById(Util.teacher().getId());
 
         Optional<Teacher> foundTeacher = teacherRepository.findById(Util.teacher().getId());
 
         assertThat(foundTeacher).isEmpty();
-
     }
 
 }
