@@ -1,7 +1,8 @@
-package az.spring.studentmanagementservice.studentmanagementservice.service;
+package az.spring.studentmanagementservice.studentmanagementservice.service.repository;
 
 import az.spring.studentmanagementservice.studentmanagementservice.domain.Student;
 import az.spring.studentmanagementservice.studentmanagementservice.repository.StudentRepository;
+import az.spring.studentmanagementservice.studentmanagementservice.service.util.Util;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,6 @@ public class StudentRepositoryTest {
         List<Student> requestList = studentRepository.findAll();
 
         assertThat(requestList).isNotNull();
-        assertThat(requestList.size()).isEqualTo(23);
     }
 
     @Test

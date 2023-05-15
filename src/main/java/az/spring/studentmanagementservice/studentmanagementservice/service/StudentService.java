@@ -1,9 +1,12 @@
 package az.spring.studentmanagementservice.studentmanagementservice.service;
 
+import az.spring.studentmanagementservice.studentmanagementservice.criteria.StudentSearchCriteria;
 import az.spring.studentmanagementservice.studentmanagementservice.domain.Student;
 import az.spring.studentmanagementservice.studentmanagementservice.enums.ErrorCode;
 import az.spring.studentmanagementservice.studentmanagementservice.error.ErrorMessage;
 import az.spring.studentmanagementservice.studentmanagementservice.exception.ServiceException;
+import az.spring.studentmanagementservice.studentmanagementservice.page.StudentPage;
+import az.spring.studentmanagementservice.studentmanagementservice.repository.StudentCriteriaRepository;
 import az.spring.studentmanagementservice.studentmanagementservice.repository.StudentRepository;
 import az.spring.studentmanagementservice.studentmanagementservice.request.StudentRequest;
 import az.spring.studentmanagementservice.studentmanagementservice.response.StudentListResponse;
@@ -11,6 +14,7 @@ import az.spring.studentmanagementservice.studentmanagementservice.response.Stud
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +26,12 @@ import java.util.stream.Collectors;
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final StudentCriteriaRepository studentCriteriaRepository;
+
+    public Page<Student> getStudentsWithFilters(StudentPage studentPage, StudentSearchCriteria searchCriteria) {
+        log.info("Pages : {}", studentPage);
+        return studentCriteriaRepository.findAllWithFilters(studentPage, searchCriteria);
+    }
 
     public StudentListResponse getAllStudents() {
         List<StudentRequest> studentDtoList = studentRepository.findAll()

@@ -1,10 +1,12 @@
-package az.spring.studentmanagementservice.studentmanagementservice.service;
+package az.spring.studentmanagementservice.studentmanagementservice.service.service;
 
 import az.spring.studentmanagementservice.studentmanagementservice.domain.Student;
 import az.spring.studentmanagementservice.studentmanagementservice.exception.ServiceException;
 import az.spring.studentmanagementservice.studentmanagementservice.repository.StudentRepository;
 import az.spring.studentmanagementservice.studentmanagementservice.response.StudentListResponse;
 import az.spring.studentmanagementservice.studentmanagementservice.response.StudentResponse;
+import az.spring.studentmanagementservice.studentmanagementservice.service.StudentService;
+import az.spring.studentmanagementservice.studentmanagementservice.service.util.Util;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

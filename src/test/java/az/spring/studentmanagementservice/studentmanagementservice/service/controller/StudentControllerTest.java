@@ -1,9 +1,11 @@
-package az.spring.studentmanagementservice.studentmanagementservice.service;
+package az.spring.studentmanagementservice.studentmanagementservice.service.controller;
 
 import az.spring.studentmanagementservice.studentmanagementservice.controller.StudentController;
 import az.spring.studentmanagementservice.studentmanagementservice.request.StudentRequest;
 import az.spring.studentmanagementservice.studentmanagementservice.response.StudentListResponse;
 import az.spring.studentmanagementservice.studentmanagementservice.response.StudentResponse;
+import az.spring.studentmanagementservice.studentmanagementservice.service.StudentService;
+import az.spring.studentmanagementservice.studentmanagementservice.service.util.Util;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -80,6 +82,7 @@ public class StudentControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("TestSurname", Util.studentRequest().getSurname());
+        mockMvc.perform(requestBuilder);
     }
 
     @Test
@@ -127,9 +130,9 @@ public class StudentControllerTest {
     @Test
     public void testAllStudent_whenGetAllStudents_shouldReturnStudentListResponse() throws Exception {
         List<StudentRequest> list = Arrays.asList(
-                new StudentRequest(1L, "Orxan", "Mustafa", "test@mail.ru"),
-                new StudentRequest(2L, "Kamal", "Cavadov", "test2@mail.ru"),
-                new StudentRequest(3L, "Davud", "Mamadov", "test3@mail.ru")
+                new StudentRequest(1L, "Orxan", "Mustafa", "test@mail.ru", 1L),
+                new StudentRequest(2L, "Kamal", "Cavadov", "test2@mail.ru", 1L),
+                new StudentRequest(3L, "Davud", "Mamadov", "test3@mail.ru", 1L)
         );
 
         when(studentService.getAllStudents()).thenReturn((new StudentListResponse(list)));

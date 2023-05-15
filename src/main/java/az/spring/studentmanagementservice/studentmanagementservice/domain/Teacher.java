@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -27,9 +29,15 @@ public class Teacher {
 
     @Column(length = 25)
     private String password;
+    
+    private Long studentId;
 
-    @OneToMany(targetEntity = Student.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id", referencedColumnName = "id", nullable = false)
-    private List<Student> students;
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    List<Student> studentList;
+
+    @ManyToOne
+    @JoinTable(name = "student_teacher", joinColumns = @JoinColumn(name = "teacher_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    @JoinColumn(name = "student_id", nullable = false)
+    Student student;
 
 }

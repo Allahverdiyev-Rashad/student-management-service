@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -31,8 +33,14 @@ public class Student {
     @Column(length = 100)
     private String email;
 
-    @OneToMany(targetEntity = Teacher.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id", nullable = false)
-    private List<Teacher> teachers;
+    private Long teacherId;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    List<Teacher> teacherList;
+
+    @ManyToOne
+    @JoinTable(name = "student_teacher", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "teacher_id"))
+    @JoinColumn(name = "teacher_id", nullable = false)
+    Teacher teacher;
 
 }

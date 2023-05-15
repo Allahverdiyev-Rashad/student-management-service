@@ -1,4 +1,4 @@
-package az.spring.studentmanagementservice.studentmanagementservice.service;
+package az.spring.studentmanagementservice.studentmanagementservice.service.util;
 
 import az.spring.studentmanagementservice.studentmanagementservice.domain.Student;
 import az.spring.studentmanagementservice.studentmanagementservice.domain.Teacher;
@@ -17,6 +17,7 @@ public class Util {
         student.setName("TestName");
         student.setSurname("TestSurname");
         student.setEmail("test@mailru");
+        student.setTeacherId(1L);
         return student;
     }
 
@@ -26,6 +27,7 @@ public class Util {
         student2.setName("TestName2");
         student2.setSurname("TestSurname2");
         student2.setEmail("test2@mailru");
+        student2.setTeacherId(2L);
         return student2;
     }
 
@@ -35,6 +37,7 @@ public class Util {
         studentRequest.setName("Kamil");
         studentRequest.setSurname("Ibadov");
         studentRequest.setEmail("kamil@mail.ru");
+        studentRequest.setTeacherId(1L);
         return studentRequest;
     }
 
@@ -44,6 +47,7 @@ public class Util {
         studentResponse.setName(student().getName());
         studentResponse.setSurname(student().getSurname());
         studentResponse.setEmail(student().getEmail());
+        studentResponse.setTeacherId(student().getTeacherId());
         return studentResponse;
     }
 
@@ -53,22 +57,25 @@ public class Util {
         studentResponse.setName("TestName");
         studentResponse.setSurname("TestSurname");
         studentResponse.setEmail("test@mail.ru");
+        studentResponse.setTeacherId(1L);
         return studentResponse;
     }
 
     public static Teacher teacher() {
         Teacher teacher = new Teacher();
         teacher.setId(1L);
-        teacher.setUsername("TestUsurname");
+        teacher.setUsername("TestUsername");
         teacher.setPassword("testPassword");
+        teacher.setStudentId(1L);
         return teacher;
     }
 
     public static Teacher teacher2() {
         Teacher teacher2 = new Teacher();
         teacher2.setId(2L);
-        teacher2.setUsername("TestUsurname2");
+        teacher2.setUsername("TestUsername2");
         teacher2.setPassword("testPassword2");
+        teacher2.setStudentId(2L);
         return teacher2;
     }
 
@@ -77,6 +84,7 @@ public class Util {
         teacherRequest.setId(1L);
         teacherRequest.setUsername("testUsername");
         teacherRequest.setPassword("testPassword");
+        teacherRequest.setStudentId(1L);
         return teacherRequest;
     }
 
@@ -85,14 +93,16 @@ public class Util {
         teacherResponse.setId(teacher().getId());
         teacherResponse.setUsername(teacher().getUsername());
         teacherResponse.setPassword(teacher().getPassword());
+        teacherResponse.setStudentId(teacher().getStudentId());
         return teacherResponse;
     }
 
     public static TeacherResponse updateTeacherResponce() {
         TeacherResponse teacherResponse = new TeacherResponse();
         teacherResponse.setId(1L);
-        teacherResponse.setUsername("testUsurname");
+        teacherResponse.setUsername("testUsername");
         teacherResponse.setPassword("testPassword");
+        teacherResponse.setStudentId(1L);
         return teacherResponse;
     }
 
