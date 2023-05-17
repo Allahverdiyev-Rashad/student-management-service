@@ -3,6 +3,7 @@ package az.spring.studentmanagementservice.studentmanagementservice.controller;
 import az.spring.studentmanagementservice.studentmanagementservice.criteria.TeacherSearchCriteria;
 import az.spring.studentmanagementservice.studentmanagementservice.domain.Teacher;
 import az.spring.studentmanagementservice.studentmanagementservice.page.TeacherPage;
+import az.spring.studentmanagementservice.studentmanagementservice.request.TeacherRegisterRequest;
 import az.spring.studentmanagementservice.studentmanagementservice.request.TeacherRequest;
 import az.spring.studentmanagementservice.studentmanagementservice.response.TeacherResponse;
 import az.spring.studentmanagementservice.studentmanagementservice.service.TeacherService;
@@ -63,6 +64,17 @@ public class TeacherController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteTeacher(@PathVariable Long teacherId) {
         teacherService.deleteTeacher(teacherId);
+    }
+
+    @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void register(@RequestBody TeacherRegisterRequest registerRequest) {
+        teacherService.register(registerRequest);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody TeacherRegisterRequest loginRequest) {
+        return teacherService.login(loginRequest);
     }
 
 }

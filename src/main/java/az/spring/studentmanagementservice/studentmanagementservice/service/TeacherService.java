@@ -9,11 +9,17 @@ import az.spring.studentmanagementservice.studentmanagementservice.mappers.Teach
 import az.spring.studentmanagementservice.studentmanagementservice.page.TeacherPage;
 import az.spring.studentmanagementservice.studentmanagementservice.repository.TeacherCriteriaRepository;
 import az.spring.studentmanagementservice.studentmanagementservice.repository.TeacherRepository;
+import az.spring.studentmanagementservice.studentmanagementservice.request.TeacherRegisterRequest;
 import az.spring.studentmanagementservice.studentmanagementservice.request.TeacherRequest;
 import az.spring.studentmanagementservice.studentmanagementservice.response.TeacherResponse;
+import az.spring.studentmanagementservice.studentmanagementservice.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +32,9 @@ public class TeacherService {
     private final TeacherRepository teacherRepository;
     private final TeacherMapper teacherMapper;
     private final TeacherCriteriaRepository teacherCriteriaRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     public Page<Teacher> getTeachersWithPagination(TeacherPage teacherPage, TeacherSearchCriteria searchCriteria) {
         log.info("Pages : {}", teacherPage);
@@ -67,6 +76,29 @@ public class TeacherService {
 
     public void deleteTeacher(Long teacherId) {
         teacherRepository.deleteById(teacherId);
+    }
+
+    public Teacher getTeacherByUsername(String username) {
+        return teacherRepository.getTeacherByUsername(username)
+                .orElseThrow(() -> ServiceException.of(ErrorCode.TEACHER_NOT_FOUND.name(), ErrorMessage.TEACHER_NOT_FOUND));
+    }
+
+    public void register(TeacherRegisterRequest registerRequest) {
+        log.info("registerRequest :  {}", registerRequest);
+        Teacher teacher = teacherMapper.fromTeacherRegisterRequestToTeacher(registerRequest);
+        teacher.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        log.info("registered : {}", teacher);
+        teacherRepository.save(teacher);
+    }
+
+    public String login(TeacherRegisterRequest loginRequest) {
+        log.info("loginRequest : {}", loginRequest);
+        authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken
+                        (loginRequest.getUsername(), loginRequest.getPassword()));
+        UserDetails user = teacherMapper.fromTeacherToTeacherDetails(getTeacherByUsername(loginRequest.getUsername()));
+        log.info("login Success : {}", user);
+        return jwtService.generateToken(user);
     }
 
 }
