@@ -1,0 +1,44 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/myprojectdb
+    username: root
+    password: 8188121
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+  port: 8090
+logging:
+  file:
+    name: logs/student_management_service.log
+  level:
+    az.spring.studentmanagementservice: DEBUG
+    org.springframework.web: ERROR
+    org.hibernate: ERROR
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      getAllTeachers:
+        sliding-window-type: count_based
+        failure-rate-threshold: 50.0
+        sliding-window-size: 6
+        wait-duration-in-open-state: 10s
+        automatic-transition-from-open-to-half-open-enabled: true
+        permitted-number-of-calls-in-half-open-state: 2
+        max-wait-duration-in-half-open-state: 15000
+      getAllStudents:
+        sliding-window-type: count_based
+        failure-rate-threshold: 50.0
+        sliding-window-size: 6
+        wait-duration-in-open-state: 10s
+        automatic-transition-from-open-to-half-open-enabled: true
+        permitted-number-of-calls-in-half-open-state: 2
+        max-wait-duration-in-half-open-state: 15000
