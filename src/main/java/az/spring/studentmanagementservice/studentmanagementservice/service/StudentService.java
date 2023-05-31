@@ -34,6 +34,8 @@ public class StudentService {
     }
 
     public StudentListResponse getAllStudents() {
+//        throw new RuntimeException(); In order for the CircuitBreaker to work,
+//        remove the exception from the comment and comment the method inside
         List<StudentRequest> studentDtoList = studentRepository.findAll()
                 .stream().map(this::domainToRequest).collect(Collectors.toList());
         log.info("StudentListResponse : {}", studentDtoList);

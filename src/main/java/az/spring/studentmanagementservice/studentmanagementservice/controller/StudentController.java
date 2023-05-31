@@ -7,6 +7,7 @@ import az.spring.studentmanagementservice.studentmanagementservice.request.Stude
 import az.spring.studentmanagementservice.studentmanagementservice.response.StudentListResponse;
 import az.spring.studentmanagementservice.studentmanagementservice.response.StudentResponse;
 import az.spring.studentmanagementservice.studentmanagementservice.service.StudentService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,7 @@ public class StudentController {
         return new ResponseEntity<>(studentService.getStudentsWithFilters(studentPage, searchCriteria), HttpStatus.OK);
     }
 
+    @CircuitBreaker(name = "getAllStudents")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public StudentListResponse getAll() {
