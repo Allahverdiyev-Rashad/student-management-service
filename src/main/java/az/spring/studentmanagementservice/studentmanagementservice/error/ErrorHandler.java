@@ -2,6 +2,7 @@ package az.spring.studentmanagementservice.studentmanagementservice.error;
 
 import az.spring.studentmanagementservice.studentmanagementservice.enums.ErrorCode;
 import az.spring.studentmanagementservice.studentmanagementservice.exception.ServiceException;
+import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -71,6 +72,17 @@ public class ErrorHandler {
         errorResponse.setCode(ErrorCode.INTERNAL_SERVER_ERROR.name());
         errorResponse.setMessage(ErrorMessage.INTERNAL_SERVER_ERROR);
         log.error("Internal server error : {}", e.getMessage());
+        return errorResponse;
+    }
+
+    @ExceptionHandler(CallNotPermittedException.class)
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    public ErrorResponse handleCallNotPermittedException(CallNotPermittedException e) {
+
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setCode(ErrorCode.SERVICE_UNAVAILABLE.name());
+        errorResponse.setMessage(ErrorMessage.SERVICE_UNAVAILABLE);
+        log.error("Service unavailable : {}", e.getMessage());
         return errorResponse;
     }
 

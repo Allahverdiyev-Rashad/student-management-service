@@ -42,6 +42,8 @@ public class TeacherService {
     }
 
     public List<TeacherResponse> getAllTeachers() {
+//        throw new RuntimeException(); In order for the CircuitBreaker to work,
+//        remove the exception from the comment and comment the method inside
         List<Teacher> teachers = teacherRepository.findAll();
         log.info("TeacherListResponse : {}", teachers);
         return teacherMapper.fromModelToListResponse(teachers);

@@ -6,5 +6,6 @@ public class ErrorMessage {
     public final static String TEACHER_NOT_FOUND = " Can not found with id ";
     public final static String VALIDATION_ERROR = " is not valid ";
     public final static String INTERNAL_SERVER_ERROR = " Internal server error ";
+    public final static String SERVICE_UNAVAILABLE = " Service unavailable ";
 
 }

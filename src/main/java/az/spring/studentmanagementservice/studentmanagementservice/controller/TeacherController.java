@@ -7,6 +7,7 @@ import az.spring.studentmanagementservice.studentmanagementservice.request.Teach
 import az.spring.studentmanagementservice.studentmanagementservice.request.TeacherRequest;
 import az.spring.studentmanagementservice.studentmanagementservice.response.TeacherResponse;
 import az.spring.studentmanagementservice.studentmanagementservice.service.TeacherService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,7 @@ public class TeacherController {
         return new ResponseEntity<>(teacherService.getTeachersWithPagination(teacherPage, searchCriteria), HttpStatus.OK);
     }
 
+    @CircuitBreaker(name = "getAllTeachers")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<TeacherResponse> getAllTeachers() {
