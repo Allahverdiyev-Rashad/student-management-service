@@ -16,6 +16,7 @@ import az.spring.studentmanagementservice.studentmanagementservice.security.JwtS
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +36,7 @@ public class TeacherService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final KafkaTemplate<String, TeacherResponse> kafkaTemplate;
 
     public Page<Teacher> getTeachersWithPagination(TeacherPage teacherPage, TeacherSearchCriteria searchCriteria) {
         log.info("Pages : {}", teacherPage);
@@ -42,11 +44,14 @@ public class TeacherService {
     }
 
     public List<TeacherResponse> getAllTeachers() {
-//        throw new RuntimeException(); In order for the CircuitBreaker to work,
+//        throw new RuntimeException();
+//        In order for the CircuitBreaker to work,
 //        remove the exception from the comment and comment the method inside
         List<Teacher> teachers = teacherRepository.findAll();
         log.info("TeacherListResponse : {}", teachers);
-        return teacherMapper.fromModelToListResponse(teachers);
+        var resultTeacher = teacherMapper.fromModelToListResponse(teachers);
+        resultTeacher.forEach(teacherResponse -> kafkaTemplate.send("teacher-topic",teacherResponse));
+        return resultTeacher;
     }
 
     public TeacherResponse getTeacherById(Long teacherId) {
